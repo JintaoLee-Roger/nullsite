@@ -1,0 +1,15 @@
+    <header class="site-header darken">
+        <div class="wrap">
+            <hgroup>
+                <h1><a href="{{ .Site.BaseURL}}">{{ .Site.Title }}</a></h1>
+            </hgroup>
+            <nav role="navigation">
+                <ul>
+                    {{ range .Site.Menus.main -}}
+                    {{- $text := print .Name | safeHTML -}}
+                    <li><a href="{{ .URL }}">{{ $text }}</a></li>
+                    {{ end -}}
+                </ul>
+            </nav>
+        </div>
+    </header>

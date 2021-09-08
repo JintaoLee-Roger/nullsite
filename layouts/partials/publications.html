@@ -1,0 +1,33 @@
+        <section class="article pad-top">
+            <article class="wrap post">
+                <header>
+                    <h1 style="text-align: center;">{{ .Title }}</h1>
+                </header>
+
+                {{- range $p := .Params.pub_list }}
+                <p>
+                    <strong>{{ $p.title }}</strong>
+                    {{- if $p.pdf }}
+                    <a href="{{ $p.pdf }}">[pdf]</a>
+                    {{- end -}}
+                    {{- if $p.link}}
+                    <a href="{{ $p.link }}">[link]</a>
+                    {{- end -}}
+                    {{- if $p.code }}
+                    <a href="{{ $p.code }}">[code]</a>
+                    {{- end }}
+                    <br>
+                    {{- range $author := $p.author -}}
+                    {{- if or (in $author "J. Li") (in $author "Jintao Li") (in $author "Li, Jintao") }}
+                    <span><strong>{{ $author }}</strong></span>
+                    {{- else }}
+                    <span>{{ $author }}</span>
+                    {{- end -}}
+                    {{- end }}
+                    <br>
+                    <span> {{ $p.published }}, {{ $p.date }}</span>
+                </p>
+                {{- end }}
+
+            </article>
+        </section>

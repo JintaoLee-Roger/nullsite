@@ -1,0 +1,25 @@
+{{ define "main" }}
+        <section class="article archive">
+            <article class="archive-wrap">
+                <ol class="post-list">
+                    <lh><h2><span class="bb">Recent Posts</span></h2></lh>
+                    {{ range .Pages.ByPublishDate.Reverse }}
+                    <li>
+                        <div class="deets" itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+                            <h1><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
+                            {{ $dateTime := .PublishDate.Format "Jan 2, 2006" }}
+                            <p class="date"><time datetime="{{ $dateTime }}" itemprop="datePublished">{{ $dateTime }}</time></p>
+                            <p>
+                                {{ if .Params.discription }}
+                                {{ truncate 120 .Params.discription }}
+                                {{ else }}
+                                {{ truncate 120 .Summary }}
+                                {{ end }}
+                            </p>
+                        </div>
+                    </li>
+                    {{ end }}
+                </ol>
+            </article>
+        </section>
+{{ end }}

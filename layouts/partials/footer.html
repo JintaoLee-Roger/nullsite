@@ -1,0 +1,43 @@
+    <div class="push"></div>
+
+    <footer>
+        <aside class="wrap">
+            <ol class="prev-posts">
+                <p class="list-title">Recent Posts</p>
+                {{- $count := newScratch -}}
+                {{- $count.Set "count" 0 -}}
+                {{- range $p := .Site.Pages.ByPublishDate.Reverse -}}
+                {{- if in $p "/posts/" -}}
+                {{- if le ($count.Get "count") 3 }}
+                <li>
+                    {{- $dateTime := .PublishDate.Format "Jan 2, 2006" -}}
+                    <span class="recent-title"><a href="{{ .RelPermalink }}">{{ truncate 30 $p.Title }} </a></span>
+                    <span class="date">{{ $dateTime }}</span>
+                </li>
+                {{- $count.Add "count" 1 -}}
+                {{- end -}}
+                {{- end -}}
+                {{- end }}
+            </ol>
+
+            <div class="social">
+                <ul>
+                    <p class="list-title">About Me</p>
+                    {{- if .Site.Params.mail }}
+                    <li><a href="mailto:{{ .Site.Params.mail }}">Contact Me</a></li>
+                    {{- end -}}
+                    {{- if .Site.Params.github }}
+                    <li><a href="{{ .Site.Params.github }}">Github</a></li>
+                    {{- end -}}
+                    {{- if .Site.Params.scholar }}
+                    <li><a href="{{ .Site.Params.scholar }}">Google Scholar</a></li>
+                    {{- end -}}
+                    {{- if .Site.Params.resume }}
+                    <li><a href="{{ .Site.BaseURL}}{{ .Site.Params.resume }}">My CV</a></li>
+                    {{- end }}
+                </ul>
+            </div>
+        </aside>
+
+        <small>&copy; {{ .Site.Params.author }}. </small>
+    </footer>
