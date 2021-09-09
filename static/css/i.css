@@ -170,7 +170,7 @@ h6, .h6 {
 }
 
 blockquote, blockquote p {
-  font-size: 48px;
+  font-size: 10px;
 }
 
 .archive input {
@@ -910,7 +910,7 @@ header.site-header nav ul li a:hover {
 }
 .archive-wrap .post-list li h1 {
   font-size: 32px;
-  font-style: italic;
+  font-style: normal;
 }
 .archive-wrap .post-list .summary {
   font-size: 18px;
@@ -948,12 +948,17 @@ header.site-header nav ul li a:hover {
   margin-bottom: 16.5px;
 }
 .post h1 {
+  font-size: 48px;
   font-style: italic;
+  text-align: center;
 }
 .post h1, .post h2, .post h3, .post h4, .post h5 {
   padding-top: 16.5px;
   margin-bottom: 16.5px;
   line-height: 1.25em;
+}
+.post h1 span {
+  font-style: normal;
 }
 .post figure {
   margin: 33px 0;
