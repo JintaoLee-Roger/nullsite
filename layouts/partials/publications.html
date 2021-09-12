@@ -15,6 +15,9 @@
                     {{- end -}}
                     {{- if $p.code }}
                     <a href="{{ $p.code }}">[code]</a>
+                    {{- end -}}
+                    {{- if $p.cite }}
+                    <a href="{{ $p.cite }}">[cite]</a>
                     {{- end }}
                     <br>
                     {{- range $author := $p.author -}}
