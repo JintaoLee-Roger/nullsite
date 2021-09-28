@@ -2,27 +2,29 @@
 
     <footer>
         <aside class="wrap">
-            <ol class="prev-posts">
+            <div class="prev-posts">
                 <p class="list-title">Recent Posts</p>
-                {{- $count := newScratch -}}
-                {{- $count.Set "count" 0 -}}
-                {{- range $p := .Site.Pages.ByPublishDate.Reverse -}}
-                {{- if in $p "/posts/" -}}
-                {{- if le ($count.Get "count") 3 }}
-                <li>
-                    {{- $dateTime := .PublishDate.Format "Jan 2, 2006" -}}
-                    <span class="recent-title"><a href="{{ .RelPermalink }}">{{ truncate 30 $p.Title }} </a></span>
-                    <span class="date">{{ $dateTime }}</span>
-                </li>
-                {{- $count.Add "count" 1 -}}
-                {{- end -}}
-                {{- end -}}
-                {{- end }}
-            </ol>
+                <ol>
+                    {{- $count := newScratch -}}
+                    {{- $count.Set "count" 0 -}}
+                    {{- range $p := .Site.Pages.ByPublishDate.Reverse -}}
+                    {{- if in $p "/posts/" -}}
+                    {{- if le ($count.Get "count") 3 }}
+                    <li>
+                        {{- $dateTime := .PublishDate.Format "Jan 2, 2006" -}}
+                        <span class="recent-title"><a href="{{ .RelPermalink }}">{{ truncate 30 $p.Title }} </a></span>
+                        <span class="date">{{ $dateTime }}</span>
+                    </li>
+                    {{- $count.Add "count" 1 -}}
+                    {{- end -}}
+                    {{- end -}}
+                    {{- end }}
+                </ol>
+            </div>
 
             <div class="social">
+                <p class="list-title">About Me</p>
                 <ul>
-                    <p class="list-title">About Me</p>
                     {{- if .Site.Params.mail }}
                     <li><a href="mailto:{{ .Site.Params.mail }}">Contact Me</a></li>
                     {{- end -}}
@@ -39,5 +41,10 @@
             </div>
         </aside>
 
-        <small>&copy; {{ .Site.Params.author }}. </small>
+        <small>&copy;<span id="NowYear"></span> {{ .Site.Params.author }}. </small>
+        <script>
+            var d = new Date();
+            var year = d.getFullYear();
+            document.getElementById("NowYear").innerHTML = year;
+        </script>
     </footer>

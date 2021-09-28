@@ -3,10 +3,14 @@
                 <header>
                     <h1>{{ .Title }}</h1>
                 </header>
-
-                {{- range $p := .Params.pub_list }}
+                <p style="text-align: center;">See my <a href="https://scholar.google.com/citations?user=_g2xGUwAAAAJ&hl=zh-CN">Google Scholar profile</a> for more details.</p>
+                
+                {{ $pub := sort .Params.pub_list "date" "desc" }}
+                {{ $.Scratch.Set "index" (len $pub) }}
+                <div id="testjs">
+                {{- range $p := $pub }}
                 <p>
-                    <strong>{{ $p.title }}</strong>
+                    <strong>{{ $.Scratch.Get "index" }}. {{ $p.title }}</strong>
                     {{- if $p.pdf }}
                     <a href="{{ $p.pdf }}">[pdf]</a>
                     {{- end -}}
@@ -20,17 +24,44 @@
                     <a href="{{ $p.cite }}">[cite]</a>
                     {{- end }}
                     <br>
-                    {{- range $author := $p.author -}}
-                    {{- if or (in $author "J. Li") (in $author "Jintao Li") (in $author "Li, Jintao") }}
-                    <span><strong>{{ $author }}</strong></span>
-                    {{- else }}
-                    <span>{{ $author }}</span>
-                    {{- end -}}
-                    {{- end }}
+                    <span>{{ delimit $p.author ", " }}</span>
                     <br>
                     <span> {{ $p.published }}, {{ $p.date }}</span>
                 </p>
+                {{ $.Scratch.Add "index" -1 }}
                 {{- end }}
+                </div>
+
+                <script>
+                    var text = document.getElementById("testjs");
+                    var str = text.innerHTML,
+                        reg = /J. Li|Jintao Li|Li, J.|Li, Jintao/ig; //g is to replace all occurances
+
+                    //fixing a bit
+                    var toStr = String(reg);
+                    var color = (toStr.replace('\/g', '|')).substring(1);
+
+                    //split it baby
+                    var colors = color.split("|");
+
+                    if (colors.indexOf("J. Li") > -1) {
+                        str = str.replace(/J\. Li/g, '<strong>J. Li</strong>');
+                    }
+
+                    if (colors.indexOf("Jintao Li") > -1) {
+                        str = str.replace(/Jintao Li/g, '<strong>Jintao Li</strong>');
+                    }
+
+                    if (colors.indexOf("Li, J.") > -1) {
+                        str = str.replace(/Li, J\./g, '<strong>Li, J.</strong>');
+                    }
+
+                    if (colors.indexOf("Li, Jintao") > -1) {
+                        str = str.replace(/Li, Jintao/g, '<strong>Li, Jintao</strong>');
+                    }
+
+                    document.getElementById("testjs").innerHTML = str;
+                </script>
 
             </article>
         </section>
