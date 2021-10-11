@@ -2,7 +2,11 @@
         <section class="article pad-top">
             <article class="wrap post">
                 <header>
+                <hgroup>
                     <h1><span>{{ .Title }}</span></h1>
+                    {{ $dateTime := .PublishDate.Format "Jan 2, 2006" }}
+                    <p class="date"><time datetime="{{ $dateTime }}" itemprop="datePublished">{{ $dateTime }}</time></p>
+                </hgroup>
                 </header>
                 {{- .Content -}}
             </article>

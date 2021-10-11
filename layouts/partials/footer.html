@@ -9,7 +9,7 @@
                     {{- $count.Set "count" 0 -}}
                     {{- range $p := .Site.Pages.ByPublishDate.Reverse -}}
                     {{- if in $p "/posts/" -}}
-                    {{- if le ($count.Get "count") 3 }}
+                    {{- if le ($count.Get "count") 2 }}
                     <li>
                         {{- $dateTime := .PublishDate.Format "Jan 2, 2006" -}}
                         <span class="recent-title"><a href="{{ .RelPermalink }}">{{ truncate 30 $p.Title }} </a></span>
